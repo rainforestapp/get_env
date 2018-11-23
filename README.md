@@ -29,7 +29,7 @@ GetEnv.fetch('YOUR_ENV_VARIABLE') # Will raise a KeyError
 
 After checking out the repo run `rake spec` to run the tests.
 
-Releasing is handled by the CI based on git tags. Once your changes are merged into `master` branch (make sure you've bumped the `VERSION` in `version.rb` file) push an adequate git tag (`git tag -a 0.X.0 && git push --tags`) to release.
+Releasing is handled by the CI based on git tags. Once your changes are merged into `master` branch (make sure you've bumped the `VERSION` in `version.rb` file) push an adequate git tag (`git tag 0.X.0 && git push --tags`) to release.
 
 ## Contributing
 
