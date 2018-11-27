@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/rainforestapp/get_env'
   spec.license       = 'MIT'
 
-  spec.files         = ['lib/get_env.rb']
+  spec.files         = ['lib/get_env.rb', 'lib/get_env/version.rb']
   spec.require_paths = ['lib']
 
   spec.add_development_dependency 'bundler'
