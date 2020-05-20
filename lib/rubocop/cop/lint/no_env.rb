@@ -29,6 +29,16 @@ module RuboCop
 
           add_offense(node)
         end
+
+        def autocorrect(node)
+          lambda do |corrector|
+            if Gem::Version.new(RuboCop::Version.version) >= Gem::Version.new('0.82.0')
+              corrector.replace(node, 'GetEnv')
+            else
+              corrector.replace(node.loc.expression, 'GetEnv')
+            end
+          end
+        end
       end
     end
   end
