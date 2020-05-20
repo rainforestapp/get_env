@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    get_env (0.1.4)
+    get_env (0.2.0.pre)
 
 GEM
   remote: https://rubygems.org/
