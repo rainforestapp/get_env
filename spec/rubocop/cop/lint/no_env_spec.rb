@@ -13,14 +13,14 @@ RSpec.describe RuboCop::Cop::Lint::NoENV do
   describe '#[]' do
     it 'registers an offense when using `ENV`' do
       expect_offense(<<~RUBY)
-        ENV['FOO']
-        ^^^ Use `GetEnv` instead of `ENV`.
+        FOO = ENV['FOO']
+              ^^^ Use `GetEnv` instead of `ENV`.
       RUBY
     end
 
     it 'does not register an offense when using `GetEnv`' do
       expect_no_offenses(<<~RUBY)
-        GetEnv['FOO']
+        FOO = GetEnv['FOO']
       RUBY
     end
   end
@@ -28,34 +28,36 @@ RSpec.describe RuboCop::Cop::Lint::NoENV do
   describe '#fetch' do
     it 'registers an offense when using `ENV`' do
       expect_offense(<<~RUBY)
-        ENV.fetch('FOO')
-        ^^^ Use `GetEnv` instead of `ENV`.
+        do_the_thing(ENV.fetch('FOO'))
+                     ^^^ Use `GetEnv` instead of `ENV`.
       RUBY
     end
 
     it 'registers an offense when using `ENV` with a default value' do
       expect_offense(<<~RUBY)
-        ENV.fetch('FOO', 42)
-        ^^^ Use `GetEnv` instead of `ENV`.
+        a = x + ENV.fetch('FOO', 42)
+                ^^^ Use `GetEnv` instead of `ENV`.
       RUBY
     end
 
     it 'does not register an offense when using `GetEnv`' do
       expect_no_offenses(<<~RUBY)
-        GetEnv.fetch('FOO')
+        do_the_thing(GetEnv.fetch('FOO'))
       RUBY
     end
 
     it 'does not register an offense when using `GetEnv` with a default value' do
       expect_no_offenses(<<~RUBY)
-        GetEnv.fetch('FOO', 42)
+        a = x + GetEnv.fetch('FOO', 42)
       RUBY
     end
   end
 
   it 'does not register an offense when using `ENV` for a method not defined by `GetEnv`' do
     expect_no_offenses(<<~RUBY)
-      ENV.map
+      ENV.map do |var|
+        foo << var.lowercase
+      end
     RUBY
   end
 end
