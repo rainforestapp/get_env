@@ -10,16 +10,52 @@ RSpec.describe RuboCop::Cop::Lint::NoENV do
 
   subject(:cop) { described_class.new(config) }
 
-  it 'registers an offense when using `#ENV`' do
-    expect_offense(<<~RUBY)
-      ENV
-      ^^^ Use `GetEnv` instead of `ENV`.
-    RUBY
+  describe '#[]' do
+    it 'registers an offense when using `ENV`' do
+      expect_offense(<<~RUBY)
+        ENV['FOO']
+        ^^^ Use `GetEnv` instead of `ENV`.
+      RUBY
+    end
+
+    it 'does not register an offense when using `GetEnv`' do
+      expect_no_offenses(<<~RUBY)
+        GetEnv['FOO']
+      RUBY
+    end
   end
 
-  it 'does not register an offense when using `#GetEnv`' do
+  describe '#fetch' do
+    it 'registers an offense when using `ENV`' do
+      expect_offense(<<~RUBY)
+        ENV.fetch('FOO')
+        ^^^ Use `GetEnv` instead of `ENV`.
+      RUBY
+    end
+
+    it 'registers an offense when using `ENV` with a default value' do
+      expect_offense(<<~RUBY)
+        ENV.fetch('FOO', 42)
+        ^^^ Use `GetEnv` instead of `ENV`.
+      RUBY
+    end
+
+    it 'does not register an offense when using `GetEnv`' do
+      expect_no_offenses(<<~RUBY)
+        GetEnv.fetch('FOO')
+      RUBY
+    end
+
+    it 'does not register an offense when using `GetEnv` with a default value' do
+      expect_no_offenses(<<~RUBY)
+        GetEnv.fetch('FOO', 42)
+      RUBY
+    end
+  end
+
+  it 'does not register an offense when using `ENV` for a method not defined by `GetEnv`' do
     expect_no_offenses(<<~RUBY)
-      GetEnv
+      ENV.map
     RUBY
   end
 end

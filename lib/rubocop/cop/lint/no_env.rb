@@ -20,10 +20,12 @@ module RuboCop
       class NoENV < Cop
         MSG = 'Use `GetEnv` instead of `ENV`.'
 
-        def_node_matcher :is_ENV?, '(const nil? :ENV)'
+        def_node_matcher :is_ENV_index?, '(send (const nil? :ENV) :[] _key)'
+        def_node_matcher :is_ENV_fetch?, '(send (const nil? :ENV) :fetch _key ...)'
 
         def on_const(node)
-          return unless is_ENV?(node)
+          parent = node.parent
+          return unless is_ENV_index?(parent) || is_ENV_fetch?(parent)
 
           add_offense(node)
         end
