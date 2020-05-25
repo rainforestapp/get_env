@@ -30,7 +30,7 @@ GetEnv.fetch('YOUR_ENV_VARIABLE') # Will raise a KeyError
 Add this to your `rubocop.yml`:
 ```yaml
 require:
-  - get_env/cops
+  - get_env
 
 Lint/NoENV:
   Enabled: true
