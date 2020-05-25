@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
-require 'rubocop'
+begin
+  require 'rubocop'
+rescue LoadError
+  # no rubocop
+  return
+end
 
 module RuboCop
   module Cop

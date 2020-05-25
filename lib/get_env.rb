@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
 require 'get_env/version'
-begin
-  require 'rubocop/cop/lint/no_env'
-rescue LoadError # rubocop:disable Lint/SuppressedException
-  # no rubocop
-end
+require 'get_env/cops'
 
 module GetEnv
   def self.[](key)
