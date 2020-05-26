@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'rubocop'
 require 'rubocop/rspec/support'
 require_relative '../../../../lib/rubocop/cop/lint/no_env'
 

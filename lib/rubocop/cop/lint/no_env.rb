@@ -1,12 +1,5 @@
 # frozen_string_literal: true
 
-begin
-  require 'rubocop'
-rescue LoadError
-  # no rubocop
-  return
-end
-
 module RuboCop
   module Cop
     module Lint

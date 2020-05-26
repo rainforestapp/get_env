@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'get_env/version'
-require 'get_env/cops'
 
 module GetEnv
   def self.[](key)
