@@ -25,6 +25,19 @@ GetEnv['YOUR_ENV_VARIABLE']
 GetEnv.fetch('YOUR_ENV_VARIABLE') # Will raise a KeyError
 ```
 
+## Rubocop extension
+
+Add this to your `rubocop.yml`:
+```yaml
+require:
+  - get_env/cops
+
+Lint/NoENV:
+  Enabled: true
+```
+
+This will flag any instances of `ENV::[]` and `ENV::fetch` as Rubcop offenses.
+
 ## Development
 
 After checking out the repo run `rake spec` to run the tests.
