@@ -13,3 +13,5 @@ Gemfile.lock
 
 # editors
 .vscode/
+
+.DS_Store
