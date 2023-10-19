@@ -18,13 +18,27 @@ module GetEnv
     ENV[key]
   end
 
-  def self.fetch(key, default = nil)
+  def self.fetch(*args, &block)
+    case args
+    in [key, default] then fetch_with_default(key, default)
+    in [key] then fetch_without_default(key, &block)
+    else raise ArgumentError
+    end
+  end
+
+  def self.fetch_with_default(key, default)
     if ENV.has_key?(key)
       self[key]
-    elsif !default.nil?
+    else
       default
+    end
+  end
+
+  def self.fetch_without_default(key, &block)
+    if ENV.has_key?(key)
+      self[key]
     elsif block_given?
-      yield
+      block.call
     else
       ENV.fetch(key) # Will raise a KeyError
     end

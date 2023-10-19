@@ -53,6 +53,10 @@ RSpec.describe GetEnv do
       expect(GetEnv.fetch('SOME_NON_EXISTANT_FLOAT', 3.21)).to eq(3.21)
     end
 
+    it 'allows nil as a default value' do
+      expect(GetEnv.fetch('SOME_NON_EXISTANT_FLOAT', nil)).to be_nil
+    end
+
     it 'raises an exception if not found and no default is specified' do
       expect do
         GetEnv.fetch('SOME_NON_EXISTANT_FLOAT')
@@ -62,6 +66,11 @@ RSpec.describe GetEnv do
     it 'accepts a block for the default value' do
       v = GetEnv.fetch('SOME_NON_EXISTANT_FLOAT') { 3.21 }
       expect(v).to eq(3.21)
+    end
+
+    it 'raises when given too few or too many arguments' do
+      expect { GetEnv.fetch }.to raise_error(ArgumentError)
+      expect { GetEnv.fetch('FOO', 1, 2) }.to raise_error(ArgumentError)
     end
   end
 end
