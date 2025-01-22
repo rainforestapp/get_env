@@ -31,7 +31,8 @@ jobs:
               --out ~/rspec/rspec.xml
   push_to_rubygems:
     docker:
-      - image: cimg/ruby:3.4.1
+      # Push to rubygems breaks with Ruby > 3.2
+      - image: cimg/ruby:3.2.2
         auth:
           username: $DOCKERHUB_USERNAME
           password: $DOCKERHUB_TOKEN
