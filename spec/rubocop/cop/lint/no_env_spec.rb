@@ -15,7 +15,7 @@ RSpec.describe RuboCop::Cop::Lint::NoENV do
     it 'registers an offense when using `ENV`' do
       expect_offense(<<~RUBY)
         FOO = ENV['FOO']
-              ^^^ Use `GetEnv` instead of `ENV`.
+              ^^^ Lint/NoENV: Use `GetEnv` instead of `ENV`.
       RUBY
 
       expect_correction(<<~RUBY)
@@ -34,7 +34,7 @@ RSpec.describe RuboCop::Cop::Lint::NoENV do
     it 'registers an offense when using `ENV`' do
       expect_offense(<<~RUBY)
         do_the_thing(ENV.fetch('FOO'))
-                     ^^^ Use `GetEnv` instead of `ENV`.
+                     ^^^ Lint/NoENV: Use `GetEnv` instead of `ENV`.
       RUBY
 
       expect_correction(<<~RUBY)
@@ -45,7 +45,7 @@ RSpec.describe RuboCop::Cop::Lint::NoENV do
     it 'registers an offense when using `ENV` with a default value' do
       expect_offense(<<~RUBY)
         a = x + ENV.fetch('FOO', 42)
-                ^^^ Use `GetEnv` instead of `ENV`.
+                ^^^ Lint/NoENV: Use `GetEnv` instead of `ENV`.
       RUBY
 
       expect_correction(<<~RUBY)
