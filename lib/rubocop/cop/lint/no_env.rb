@@ -15,7 +15,9 @@ module RuboCop
       #
       #   # good
       #   GetEnv.fetch(...)
-      class NoENV < Cop
+      class NoENV < Base
+        extend AutoCorrector
+
         MSG = 'Use `GetEnv` instead of `ENV`.'
 
         def_node_matcher :is_ENV_index?, '(send (const nil? :ENV) :[] _key)'
@@ -25,11 +27,7 @@ module RuboCop
           parent = node.parent
           return unless is_ENV_index?(parent) || is_ENV_fetch?(parent)
 
-          add_offense(node)
-        end
-
-        def autocorrect(node)
-          lambda do |corrector|
+          add_offense(node) do |corrector|
             if Gem::Version.new(RuboCop::Version.version) >= Gem::Version.new('0.82.0')
               corrector.replace(node, 'GetEnv')
             else

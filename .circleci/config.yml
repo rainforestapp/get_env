@@ -31,7 +31,7 @@ jobs:
               --out ~/rspec/rspec.xml
   push_to_rubygems:
     docker:
-      - image: cimg/ruby:3.2.2
+      - image: cimg/ruby:3.4.1
         auth:
           username: $DOCKERHUB_USERNAME
           password: $DOCKERHUB_TOKEN
@@ -58,7 +58,7 @@ workflows:
           matrix:
             alias: old-ruby
             parameters:
-              ruby: ["2.7.8", "3.0.6", "3.1.4"]
+              ruby: ["3.0.7", "3.1.6", "3.2.6", "3.3.7"]
           filters:
             tags:
               only:
@@ -66,7 +66,7 @@ workflows:
           context:
             - DockerHub
       - test:
-          ruby: "3.2.2"
+          ruby: "3.4.1"
           filters:
             tags:
               only:
