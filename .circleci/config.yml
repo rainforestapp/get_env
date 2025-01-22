@@ -31,8 +31,7 @@ jobs:
               --out ~/rspec/rspec.xml
   push_to_rubygems:
     docker:
-      # Push to rubygems breaks with Ruby > 3.2
-      - image: cimg/ruby:3.2.2
+      - image: cimg/ruby:3.4.1
         auth:
           username: $DOCKERHUB_USERNAME
           password: $DOCKERHUB_TOKEN
@@ -43,7 +42,7 @@ jobs:
           command: |
             mkdir ~/.gem
             echo "---
-              :rubygems_api_key: $RUBYGEMS_API_KEY
+            :rubygems_api_key: $RUBYGEMS_API_KEY
             " > ~/.gem/credentials
             chmod 600 ~/.gem/credentials
       - run:
